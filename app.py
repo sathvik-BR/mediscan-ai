@@ -150,7 +150,7 @@ MODEL_PATH = "mediscan_best.pth"
 DEVICE     = torch.device("cpu")
 CLASSES    = ["NORMAL", "PNEUMONIA"]
 IMG_SIZE   = 224
-GROQ_KEY = os.environ.get("GROQ_KEY", "YOUR_API_KEY")
+GROQ_KEY = os.environ.get("GROQ_API_KEY", "")
 GROQ_MODEL = "llama-3.3-70b-versatile"
 TRANSFORM  = transforms.Compose([transforms.Resize((IMG_SIZE,IMG_SIZE)),transforms.ToTensor(),transforms.Normalize([0.485,0.456,0.406],[0.229,0.224,0.225])])
 
@@ -164,8 +164,17 @@ Grad-CAM: Explainability technique highlighting regions important for model pred
 Emergency care for pneumonia: Difficulty breathing, Chest pain, Confusion, SpO2 below 92%, Coughing blood, High fever not responding to medication.
 AI Limitations: AI should assist not replace clinical judgment. Models may not generalize across populations. Always correlate AI findings with clinical history."""
 
+HF_MODEL_URL = "https://huggingface.co/B-R-Sathvik/mediscan-ai/resolve/main/mediscan_best.pth"
+
+def download_model():
+    if not os.path.exists(MODEL_PATH):
+        import urllib.request
+        with st.spinner("⬇️ Downloading model weights (~30MB)... first run only!"):
+            urllib.request.urlretrieve(HF_MODEL_URL, MODEL_PATH)
+
 @st.cache_resource(show_spinner=False)
 def load_model():
+    download_model()
     if not os.path.exists(MODEL_PATH): return None
     model = models.densenet121(weights=None)
     in_f  = model.classifier.in_features
@@ -274,7 +283,7 @@ with tab1:
         if pil:
             st.markdown("<div style='height:.9rem'></div>",unsafe_allow_html=True)
             st.markdown(sec_label("Input X-Ray"),unsafe_allow_html=True)
-            st.image(pil.resize((IMG_SIZE, IMG_SIZE)),use_container_width=True)
+            st.image(pil,use_container_width=True)
             st.markdown(render_info_chips(pil),unsafe_allow_html=True)
         else:
             st.markdown('<div class="empty-state"><span class="empty-icon">🫁</span><span>Drop a chest X-ray image above<br>to begin AI analysis</span></div>',unsafe_allow_html=True)
