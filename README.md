@@ -9,10 +9,13 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.35-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
 [![Groq](https://img.shields.io/badge/Groq-LLaMA--3.3--70B-00A67E?style=for-the-badge)](https://groq.com)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://mediscan-ai-jzmgxsbzhstdazbwtsmch6.streamlit.app/)
 
 <br>
 
 > **Educational AI tool** for chest X-ray pneumonia detection using DenseNet-121, Grad-CAM explainability, and a RAG-powered clinical assistant grounded in WHO guidelines.
+
+### 🚀 [Try the Live Demo](https://mediscan-ai-jzmgxsbzhstdazbwtsmch6.streamlit.app/)
 
 </div>
 
@@ -96,7 +99,8 @@ mediscan-ai/
 ├── app.py                  ← Main Streamlit application
 ├── kaggle_train.py         ← Model training script (run on Kaggle GPU)
 ├── requirements.txt        ← Python dependencies
-├── packages.txt            ← System dependencies (for HuggingFace Spaces)
+├── packages.txt            ← System dependencies
+├── runtime.txt             ← Python version specification
 ├── README.md               ← You are here
 ├── .gitignore              ← Git ignore rules
 ├── samples/                ← Sample chest X-ray images for testing
@@ -172,6 +176,18 @@ Sample chest X-rays are available in the `/samples` folder. Upload them directly
 
 - `NORMAL_1.jpeg` / `NORMAL_2.jpeg` → Expected: **NORMAL**
 - `PNEUMONIA_1.jpeg` / `PNEUMONIA_2.jpeg` → Expected: **PNEUMONIA**
+
+---
+
+## 🌐 Deploy to Streamlit Cloud
+
+1. Push your code to GitHub
+2. Go to [share.streamlit.io](https://share.streamlit.io) → Connect your repo
+3. Set **Main file path** to `app.py`
+4. Go to **Advanced settings → Secrets** → Add `GROQ_API_KEY = "your_key"`
+5. Click **Deploy** 🚀
+
+> **Live deployment:** [mediscan-ai-jzmgxsbzhstdazbwtsmch6.streamlit.app](https://mediscan-ai-jzmgxsbzhstdazbwtsmch6.streamlit.app/)
 
 ---
 
