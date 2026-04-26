@@ -202,7 +202,8 @@ class GradCAM:
         c=cv2.resize(c,(IMG_SIZE,IMG_SIZE));return (c-c.min())/(c.max()-c.min()+1e-8)
 
 def build_overlay(pil,cam):
-    orig=np.array(pil.resize((IMG_SIZE,IMG_SIZE)).convert("RGB"))
+    orig=np.array(pil.resize((512,512)).convert("RGB"))
+    cam=cv2.resize(cam,(512,512))
     h=cv2.cvtColor(cv2.applyColorMap(np.uint8(255*cam),cv2.COLORMAP_JET),cv2.COLOR_BGR2RGB)
     return Image.fromarray((0.55*orig+0.45*h).astype(np.uint8))
 
@@ -283,7 +284,8 @@ with tab1:
         if pil:
             st.markdown("<div style='height:.9rem'></div>",unsafe_allow_html=True)
             st.markdown(sec_label("Input X-Ray"),unsafe_allow_html=True)
-            st.image(pil,use_container_width=True)
+            display_img = pil.resize((512,512))
+            st.image(display_img,use_container_width=True)
             st.markdown(render_info_chips(pil),unsafe_allow_html=True)
         else:
             st.markdown('<div class="empty-state"><span class="empty-icon">🫁</span><span>Drop a chest X-ray image above<br>to begin AI analysis</span></div>',unsafe_allow_html=True)
