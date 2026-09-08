@@ -150,7 +150,7 @@ MODEL_PATH = "mediscan_best.pth"
 DEVICE     = torch.device("cpu")
 CLASSES    = ["NORMAL", "PNEUMONIA"]
 IMG_SIZE   = 224
-GROQ_KEY = os.environ.get("GROQ_API_KEY", "")
+GROQ_MODEL = "openai/gpt-oss-120b"
 GROQ_MODEL = "llama-3.3-70b-versatile"
 TRANSFORM  = transforms.Compose([transforms.Resize((IMG_SIZE,IMG_SIZE)),transforms.ToTensor(),transforms.Normalize([0.485,0.456,0.406],[0.229,0.224,0.225])])
 
